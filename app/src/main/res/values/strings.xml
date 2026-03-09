@@ -1,9 +1,9 @@
 <resources>
     <string name="app_name">Remember it</string>
-    <string name="how">How it works?</string>
-    <string name="method_description">Method description</string>
+    <string name="about_app_top_bar">How it works?</string>
+    <string name="method_description_title">Method description</string>
     <string name="method_description_text">The method of interval repetition is a scientifically proven technique for effective memorization of information. It is based on the repetition of the material studied at increasing intervals of time, which allows you to transfer knowledge from short-term memory to long-term memory.</string>
-    <string name="how_to_use">How to use the App?</string>
+    <string name="how_to_use_title">How to use the App?</string>
     <string name="how_to_use_text"> - Create a note: Enter the information you want to memorize and customize the frequency of reminders.
                                     \n- Choose a study mode: Determine the intensity of your memory training (intense, moderate, etc.).
                                     \n- Follow reminders: The app will remind you to repeat at the right moments.
@@ -16,7 +16,7 @@
                                     \nDay 9 - repeat. Y = 2.5 * 9.75 + 1 = 25.375 (days 10-24- rest).</string>
     <string name="select_lng">Select language</string>
     <string name="memorize_mode">Memorize mode</string>
-    <string name="medium_mode">Medium</string>
+    <string name="normal_mode">Normal</string>
     <string name="intensive_mode">Intensive</string>
     <string name="title">Title</string>
     <string name="plus">+</string>

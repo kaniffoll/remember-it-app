@@ -1,17 +1,19 @@
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
-    kotlin("kapt")
+    alias(libs.plugins.ksp)
+    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
-    namespace = "com.example.rememberit"
-    compileSdk = 34
+    namespace = "com.kaniffoll.rememberit"
+    compileSdk = 36
 
     defaultConfig {
-        applicationId = "com.example.rememberit"
+        applicationId = "com.kaniffoll.rememberit"
         minSdk = 24
-        targetSdk = 34
+        targetSdk = 36
         versionCode = 1
         versionName = "1.0"
 
@@ -61,9 +63,13 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
     implementation(libs.androidx.ui.text.google.fonts)
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation ("androidx.lifecycle:lifecycle-viewmodel-compose:2.5.1")
+    implementation(libs.androidx.lifecylce.viewmodel)
+    implementation(libs.room.runtime)
+    implementation(libs.room.ktx)
+    implementation(libs.dagger)
     implementation(libs.androidx.navigation.compose)
+    implementation(libs.work.runtime.ktx)
+    implementation(libs.kotlinx.serialization.json)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
@@ -73,7 +79,6 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-    implementation("androidx.room:room-ktx:2.6.1")
-    kapt("androidx.room:room-compiler:2.6.1")
-    implementation("androidx.work:work-runtime-ktx:2.8.1")
+    ksp(libs.room.compiler)
+    ksp(libs.dagger.compiler)
 }

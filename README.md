@@ -1,33 +1,48 @@
 # Remember It App
-Прототип приложения Android для создания заметок с напоминаниями. Основой является идея интервального запоминания.
 
-## Технологический стек
-- Jetpack Compose
-- Material Theme
-- NavController
-- MVVM
-- Room
-- WorkManager
+Android app prototype for creating notes with reminders.  
+Built around the idea of **spaced repetition** to help users remember information more effectively.
 
-## About
+---
 
-Всего три экрана:
-1.	Главный экран со всеми заметками. Есть возможность удалить заметку или изменить при нажатии на неё. Также можно добавить новую заметку при нажатии на кнопку справа внизу.
-2.	Экран с информацией об алгоритме работы приложения.
-3.	Экран создания/редактирования заметки. Есть возможность задать заголовок и ввести текст заметки. Также полностью очистить поле ввода и сохранить заметку, выбрав алгоритм напоминания.
+## Tech Stack
 
-Приложение использует Material Theme и все Composable функции используют настройки, заданные в ней. Также есть поддержка тёмной темы.
+- Kotlin & Jetpack Compose  
+- Material 3 Theme  
+- Navigation Compose 
+- MVVM + Clean Architecture  
+- Room Database  
+- WorkManager  
+- Dagger 2  
+- Kotlinx Serialization  
 
-В приложении есть специальная функция реализующая NavHost и перемещение по экранам приложения.
+---
 
-Локализация – приложение поддерживает русский язык. Он будет использоваться, в случае если системный язык устройства - русский.
+## Features
 
-Реализована одна ViewModel для обработки хранения состояния заметок и для взаимодействия с локальной базой данных, хранящей эти заметки. Она принимает в себя интерфейс dao, служащий для выполнения операций с базой данных. Эта ViewModel обрабатывает NoteState, дата класс, используемый для хранения текущего состояния приложения.
+### 1. Notes List Screen
+- View, delete, or edit notes  
+- Add new notes via floating action button  
 
-Используется всего одна таблица для хранения информации о заметке, а именно: заголовок, текст, режим напоминания и id.
-Для взаимодействия с ней реализован интерфейс dao, реализующий CRUD запросы.
+### 2. About Screen
+- Explains the app’s spaced repetition algorithm  
 
+### 3. Note Screen
+- Create/edit notes: title, text, reminder mode  
+- Clear or save notes  
 
+---
 
+## UI & Architecture
 
+- Material 3 theme with **dark mode support**  
+- **MVVM + Clean Architecture**  
+- Single Room table storing `id`, `title`, `text`, `mode`  
+- CRUD operations via DAO and repository pattern  
+- Reminders scheduled with **WorkManager**  
 
+---
+
+## Purpose
+
+Practice modern Android development: Jetpack Compose, Room, WorkManager, and dependency injection.

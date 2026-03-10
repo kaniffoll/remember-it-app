@@ -11,4 +11,5 @@ object Dimens {
     val FAB_ROUNDED_SHAPE = 24.dp
     val SPACE_UNDER_FAB = 48.dp
     val NOTE_TITLE_HEIGHT = 70.dp
+    val NOTE_CARD_HEIGHT = 80.dp
 }

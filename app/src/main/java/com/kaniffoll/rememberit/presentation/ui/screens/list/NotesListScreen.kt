@@ -34,16 +34,16 @@ import com.kaniffoll.rememberit.presentation.ui.res.Dimens
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NotesListScreen(
+    viewModel: NoteListViewModel,
     onAboutClick: () -> Unit,
     onCardClick: (Int) -> Unit
 ) {
-    val viewModel: NoteListViewModel
     val notesState by viewModel.notes.collectAsState()
 
     Scaffold(
         topBar = { TopAppBar { onAboutClick() } },
         content = { innerPadding ->
-            when (notesState) {
+            when (val state = notesState) {
                 is NoteListState.Loading -> {
                     Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
                         CircularProgressIndicator()
@@ -55,12 +55,12 @@ fun NotesListScreen(
                         contentPadding = innerPadding,
                         verticalArrangement = Arrangement.spacedBy(Dimens.MEDIUM_PADDING),
                     ) {
-                        items((notesState as NoteListState.Success).notes) { note ->
+                        items(state.notes) { note ->
                             NoteCard(
                                 note = note,
                                 modifier = Modifier,
-                                onDeleteButtonClicked = { viewModel.deleteNote(note) },
-                                onCardClicked = { onCardClick(note.id) }
+                                onDelete = { viewModel.deleteNote(note) },
+                                onClick = { onCardClick(note.id) }
                             )
                         }
                     }

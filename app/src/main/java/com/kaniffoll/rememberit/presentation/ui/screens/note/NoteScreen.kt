@@ -40,12 +40,12 @@ import com.kaniffoll.rememberit.presentation.ui.res.Dimens
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun NoteScreen(
+    viewModel: NoteViewModel,
     onBack: () -> Unit,
 ) {
     val lineHeightPx = 130f
     val lineHeightSp: TextUnit = with(LocalDensity.current) { lineHeightPx.toSp() }
     var showDialog by remember { mutableStateOf(false) }
-    val viewModel: NoteViewModel
     val noteState by viewModel.currentNote.collectAsState()
 
     Scaffold(
@@ -93,7 +93,7 @@ fun NoteScreen(
         },
     )
     if (showDialog) {
-        NoteDialog(onHide = { showDialog = !showDialog }, onBack = onBack)
+        NoteDialog(viewModel, onHide = { showDialog = !showDialog }, onBack = onBack)
     }
 }
 

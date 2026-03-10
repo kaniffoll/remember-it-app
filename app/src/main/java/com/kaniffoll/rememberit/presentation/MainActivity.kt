@@ -4,42 +4,28 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.activity.viewModels
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.ViewModelProvider
 import androidx.room.Room
 import com.kaniffoll.rememberit.data.database.NoteDatabase
 import com.kaniffoll.rememberit.data.workers.NotificationSchedulerImpl
-import com.kaniffoll.rememberit.presentation.navigation.RememberItApp
+import com.kaniffoll.rememberit.di.AppComponentProvider
+import com.kaniffoll.rememberit.di.NoteListViewModelFactory
+import com.kaniffoll.rememberit.di.NoteViewModelFactory
+import com.kaniffoll.rememberit.presentation.navigation.Navigation
 import com.kaniffoll.rememberit.presentation.theme.RememberItTheme
+import javax.inject.Inject
+import kotlin.getValue
 
 class MainActivity : ComponentActivity() {
-    private val db by lazy {
-        Room.databaseBuilder(
-            applicationContext,
-            NoteDatabase::class.java,
-            name = "notes"
-        ).build()
-    }
-
-    private val notificationScheduler by lazy {
-        NotificationSchedulerImpl(applicationContext)
-    }
-
-    private val viewModel by viewModels<NoteViewModel>(
-        factoryProducer = {
-            object : ViewModelProvider.Factory {
-                override fun <T : ViewModel> create(modelClass: Class<T>): T {
-                    return NoteViewModel(db.dao, notificationScheduler) as T
-                }
-            }
-        }
-    )
+    @Inject
+    lateinit var noteListViewModelFactory: NoteListViewModelFactory
+    @Inject
+    lateinit var noteViewModelFactory: NoteViewModelFactory.Factory
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        (application as AppComponentProvider).appComponent.inject(this)
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
@@ -47,7 +33,10 @@ class MainActivity : ComponentActivity() {
                 Surface(
                     modifier = Modifier.Companion.fillMaxSize()
                 ) {
-                    RememberItApp(noteViewModel = viewModel)
+                    Navigation(
+                        noteListViewModelFactory,
+                        noteViewModelFactory
+                    )
                 }
             }
         }

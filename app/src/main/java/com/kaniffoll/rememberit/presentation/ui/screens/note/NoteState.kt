@@ -5,5 +5,5 @@ import com.kaniffoll.rememberit.domain.model.Mode
 data class NoteState(
     val title: String = "",
     val text: String = "",
-    val mode: Mode = Mode.Normal
+    val mode: Mode = Mode.None
 )

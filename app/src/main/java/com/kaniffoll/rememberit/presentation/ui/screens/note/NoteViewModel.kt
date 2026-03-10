@@ -2,21 +2,30 @@ package com.kaniffoll.rememberit.presentation.ui.screens.note
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.kaniffoll.rememberit.domain.NoteRepository
 import com.kaniffoll.rememberit.domain.model.Mode
 import com.kaniffoll.rememberit.domain.model.Note
 import com.kaniffoll.rememberit.domain.usecase.CreateNotificationUseCase
+import com.kaniffoll.rememberit.domain.usecase.GetNoteByIdUseCase
+import com.kaniffoll.rememberit.domain.usecase.UpdateNoteUseCase
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
 
 class NoteViewModel(
-    private val noteRepository: NoteRepository,
+    private val updateNoteUseCase: UpdateNoteUseCase,
     private val scheduleNotificationUseCase: CreateNotificationUseCase,
+    private val getNoteByIdUseCase: GetNoteByIdUseCase,
     private val id: Int
-): ViewModel() {
+) : ViewModel() {
+
     private var _currentNote = MutableStateFlow(NoteState())
     val currentNote = _currentNote as StateFlow<NoteState>
+
+    init {
+        viewModelScope.launch {
+            _currentNote.value = getNoteByIdUseCase(id).toNoteState()
+        }
+    }
 
     fun updateText(text: String) {
         _currentNote.value = _currentNote.value.copy(text = text)
@@ -33,7 +42,7 @@ class NoteViewModel(
     fun setAndModeAndUpsertNote(mode: Mode) {
         viewModelScope.launch {
             _currentNote.value = _currentNote.value.copy(mode = mode)
-            noteRepository.updateNote(_currentNote.value.toNote())
+            updateNoteUseCase(_currentNote.value.toNote())
             scheduleNotificationUseCase(_currentNote.value.text, _currentNote.value.mode)
         }
     }
@@ -44,6 +53,13 @@ class NoteViewModel(
             title = this.title,
             text = this.text,
             mode = this.mode
+        )
+
+    private fun Note.toNoteState() =
+        NoteState(
+            this.title,
+            this.text,
+            this.mode
         )
 }
 

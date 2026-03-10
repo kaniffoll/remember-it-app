@@ -11,5 +11,5 @@ sealed interface NavRoute {
     data object AboutRoute : NavRoute
 
     @Serializable
-    data object NoteRoute : NavRoute
+    data class NoteRoute(val id: Int) : NavRoute
 }

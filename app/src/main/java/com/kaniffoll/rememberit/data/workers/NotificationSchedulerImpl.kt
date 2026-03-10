@@ -12,8 +12,9 @@ import com.kaniffoll.rememberit.data.workers.NotificationResources.WORK_NAME
 import com.kaniffoll.rememberit.domain.NotificationScheduler
 import com.kaniffoll.rememberit.domain.model.Mode
 import java.util.concurrent.TimeUnit
+import javax.inject.Inject
 
-class NotificationSchedulerImpl(private val context: Context) : NotificationScheduler {
+class NotificationSchedulerImpl @Inject constructor(private val context: Context) : NotificationScheduler {
     override fun scheduleNotification(noteText: String, mode: Mode) {
         val data = Data.Builder()
             .putString(NOTE_TEXT_KEY, noteText)

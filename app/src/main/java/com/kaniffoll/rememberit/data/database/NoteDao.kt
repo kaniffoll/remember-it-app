@@ -17,4 +17,7 @@ interface NoteDao {
 
     @Query("SELECT * FROM note")
     suspend fun getNotes(): List<NoteEntity>
+
+    @Query("SELECT * FROM note WHERE id = :id LIMIT 1")
+    suspend fun getNoteById(id: Int): NoteEntity
 }

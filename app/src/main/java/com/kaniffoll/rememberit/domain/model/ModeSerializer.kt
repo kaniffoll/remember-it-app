@@ -16,6 +16,7 @@ class ModeSerializer : KSerializer<Mode> {
         val str = when (value) {
             is Mode.Intensive -> INTENSIVE_AS_STRING
             is Mode.Normal -> NORMAL_AS_STRING
+            else -> {""}
         }
         encoder.encodeString(str)
     }
@@ -24,6 +25,7 @@ class ModeSerializer : KSerializer<Mode> {
         return when (val str = decoder.decodeString()) {
             NORMAL_AS_STRING -> Mode.Normal
             INTENSIVE_AS_STRING -> Mode.Intensive
+            "" -> Mode.None
             else -> throw SerializationException("Unknown type $str")
         }
     }

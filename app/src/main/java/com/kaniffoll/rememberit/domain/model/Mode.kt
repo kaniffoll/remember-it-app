@@ -8,4 +8,6 @@ sealed interface Mode {
     data object Normal: Mode
     @Serializable
     data object Intensive: Mode
+    @Serializable
+    data object None: Mode
 }

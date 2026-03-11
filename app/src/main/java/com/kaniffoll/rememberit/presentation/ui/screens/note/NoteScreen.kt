@@ -126,7 +126,6 @@ private fun TopAppBar(
                     },
                     modifier = Modifier
                         .fillMaxWidth(),
-                    textStyle = MaterialTheme.typography.headlineLarge.copy(color = Color.White),
                     singleLine = true,
                 )
             }
